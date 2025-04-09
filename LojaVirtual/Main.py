@@ -1,68 +1,50 @@
 from Loja import Loja
-from CarrinhoLoja import CarrinhoLoja
 from Produto import Produto
 
+loja = Loja()
+loja.adicionar_produto(Produto("Camiseta", 50.0, 10))
+loja.adicionar_produto(Produto("Tênis", 200.0, 5))
+loja.adicionar_produto(Produto("Calça", 120.0, 8))
+loja.adicionar_produto(Produto("Jaqueta", 300.0, 3))
+loja.adicionar_produto(Produto("Boné", 30.0, 15))
+loja.adicionar_produto(Produto("Relógio", 150.0, 7))
+loja.adicionar_produto(Produto("Mochila", 80.0, 4))
+loja.adicionar_produto(Produto("Óculos", 120.0, 6))
+
+
 def menu():
-    minha_Loja = Loja()
-    minha_Loja.adicionar_produto(Produto("Notebook", 3500, 5))
-    minha_Loja.adicionar_produto(Produto("Mouse", 150, 20))
-    minha_Loja.adicionar_produto(Produto("Teclado", 200, 15))
-    minha_Loja.adicionar_produto(Produto("Monitor", 1200, 10))
-    minha_Loja.adicionar_produto(Produto("Impressora", 800, 8))
-    minha_Loja.adicionar_produto(Produto("Mesa", 500, 12))
-    minha_Loja.adicionar_produto(Produto("Cadeira", 700, 7))
-
     while True:
-        print("=" * 40)
-        print("1 - Exibir produtos")
-        print("2 - Adicionar produto ao carrinho")
-        print("3 - Aplicar desconto")
-        print("4 - Visualizar carrinho")
-        print("5 - Finalizar compra")
-        print("6 - Sair")
-        print("=" * 40)
-        
-
+        print("\n=== Menu da Loja ===")
+        print("1. Listar produtos")
+        print("2. Adicionar ao carrinho")
+        print("3. Ver carrinho")
+        print("4. Finalizar compra")
+        print("5. Aplicar desconto a produto")
+        print("6. Sair")
         opcao = input("Escolha uma opção: ")
 
-        match opcao:
-            case "1":
-                print("\n Produtos disponíveis:")
-                minha_Loja.listar_produtos()
-
-            case "2":
-                minha_Loja.listar_produtos()
-                i = int(input("\nDigite o número do produto: ")) - 1
-                if 0 <= i < len(minha_Loja.produtos):
-                    qtd = int(input("Quantidade: "))
-                    minha_Loja.carrinho.adicionar_produto(minha_Loja.produtos[i], qtd)
-                else:
-                    print("Produto inválido.")
-
-            case "3":
-                minha_Loja.listar_produtos()
-                i = int(input("\nDigite o número do produto para aplicar desconto: ")) - 1
-                if 0 <= i < len(minha_Loja.produtos):
-                    desc = float(input("Percentual de desconto (%): "))
-                    minha_Loja.aplicar_desconto_produto(i, desc)
-                    print("Desconto aplicado.")
-                else:
-                    print("Produto inválido.")
-
-            case "4":
-                print("\n Itens no carrinho:")
-                minha_Loja.carrinho.exibir_itens()
-
-            case "5":
-                print("\n Finalizando compra...")
-                minha_Loja.comprar()
-
-            case "6":
-                print("Obrigado por usar a Loja. Até logo!")
-                break
-
-            case _:
-                print("Opção inválida. Tente novamente.")
+        if opcao == "1":
+            loja.listar_produtos()
+        elif opcao == "2":
+            loja.listar_produtos()
+            i = int(input("Digite o número do produto: ")) - 1
+            quant = int(input("Digite a quantidade: "))
+            loja.comprar(i, quant)
+        elif opcao == "3":
+            loja.ver_carrinho()
+        elif opcao == "4":
+            loja.finalizar_compra()
+        elif opcao == "5":
+            loja.listar_produtos()
+            i = int(input("Digite o número do produto para aplicar desconto: ")) - 1
+            perc = float(input("Percentual de desconto (%): "))
+            loja.aplicar_desconto(i, perc)
+        elif opcao == "6":
+            print("Obrigado por visitar nossa loja!")
+            break
+        else:
+            print("Opção inválida.")
 
 
-menu()
+if __name__ == "__main__":
+    menu()
