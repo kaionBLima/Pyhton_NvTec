@@ -2,7 +2,7 @@ from CarrinhoLoja import CarrinhoLoja
 from Produto import Produto
 
 class Loja:
-    def __init__(self):
+    def __init__(self, carrinho):
         self.produtos = []
         self.carrinho = CarrinhoLoja()
 
