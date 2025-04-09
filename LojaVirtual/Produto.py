@@ -4,23 +4,13 @@ class Produto:
         self.preco = preco
         self.quantidadeEst = quantidadeEst
 
-    def get_nome(self):
-        return self.nome
+    def aplicar_desconto(self, percentual):
+        self.preco -= self.preco * (percentual / 100)
 
-    def get_preco(self):
-        return self.preco
-    
-    def get_quantidadeEst(self):
-        return self.quantidadeEst
-
-    def set_nome(self, nome):
-        self.nome = nome
-
-    def set_preco(self, preco):
-        self.preco = preco
-
-    def set_quantidadeEst(self, quantidadeEst):
-        self.quantidadeEst = quantidadeEst
+    def atualizar_estoque(self, quantidade):
+        if quantidade > self.estoque:
+            raise ValueError("Estoque insuficiente.")
+        self.estoque -= quantidade
 
     def __str__(self):
-        return f'{self.nome} - R${self.preco} - {self.quantidadeEst} unidades'
+        return f"{self.nome} - R${self.preco:.2f} - Estoque: {self.estoque}"
