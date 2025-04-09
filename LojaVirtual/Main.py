@@ -1,5 +1,5 @@
-from loja import Loja
-from produto import Produto
+from Loja import Loja
+from Produto import Produto
 
 def exibir_menu():
     print("=" * 40)
@@ -12,14 +12,14 @@ def exibir_menu():
     print("=" * 40)
 
 def menu():
-    loja = Loja()
-    loja.adicionar_produto(Produto("Notebook", 3500, 5))
-    loja.adicionar_produto(Produto("Mouse", 150, 20))
-    loja.adicionar_produto(Produto("Teclado", 200, 15))
-    loja.adicionar_produto(Produto("Monitor", 1200, 10))
-    loja.adicionar_produto(Produto("Impressora", 800, 8))
-    loja.adicionar_produto(Produto("Mesa", 500, 12))
-    loja.adicionar_produto(Produto("Cadeira", 700, 7))
+    Loja = Loja()
+    Loja.adicionar_produto(Produto("Notebook", 3500, 5))
+    Loja.adicionar_produto(Produto("Mouse", 150, 20))
+    Loja.adicionar_produto(Produto("Teclado", 200, 15))
+    Loja.adicionar_produto(Produto("Monitor", 1200, 10))
+    Loja.adicionar_produto(Produto("Impressora", 800, 8))
+    Loja.adicionar_produto(Produto("Mesa", 500, 12))
+    Loja.adicionar_produto(Produto("Cadeira", 700, 7))
 
     while True:
         exibir_menu()
@@ -28,41 +28,40 @@ def menu():
         match opcao:
             case "1":
                 print("\n Produtos disponíveis:")
-                loja.listar_produtos()
+                Loja.listar_produtos()
 
             case "2":
-                loja.listar_produtos()
+                Loja.listar_produtos()
                 i = int(input("\nDigite o número do produto: ")) - 1
-                if 0 <= i < len(loja.produtos):
+                if 0 <= i < len(Loja.produtos):
                     qtd = int(input("Quantidade: "))
-                    loja.carrinho.adicionar_produto(loja.produtos[i], qtd)
+                    Loja.carrinho.adicionar_produto(Loja.produtos[i], qtd)
                 else:
                     print("Produto inválido.")
 
             case "3":
-                loja.listar_produtos()
+                Loja.listar_produtos()
                 i = int(input("\nDigite o número do produto para aplicar desconto: ")) - 1
-                if 0 <= i < len(loja.produtos):
+                if 0 <= i < len(Loja.produtos):
                     desc = float(input("Percentual de desconto (%): "))
-                    loja.aplicar_desconto_produto(i, desc)
+                    Loja.aplicar_desconto_produto(i, desc)
                     print("Desconto aplicado.")
                 else:
                     print("Produto inválido.")
 
             case "4":
                 print("\n Itens no carrinho:")
-                loja.carrinho.exibir_itens()
+                Loja.carrinho.exibir_itens()
 
             case "5":
                 print("\n Finalizando compra...")
-                loja.comprar()
+                Loja.comprar()
 
             case "6":
-                print("Obrigado por usar a loja. Até logo!")
+                print("Obrigado por usar a Loja. Até logo!")
                 break
 
             case _:
                 print("Opção inválida. Tente novamente.")
 
-    if __name__ == "__main__":
-         menu()
+    menu()
