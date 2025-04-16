@@ -26,9 +26,9 @@ class Loja:
         else:
             print("Produto inválido.")
 
-    def aplicar_desconto(self, indice, percentual):
-        if 0 <= indice < len(self.produtos):
-            self.produtos[indice].aplicar_desconto(percentual)
+    def aplicar_desconto(self, i, percentual):
+        if 0 <= i < len(self.produtos):
+            self.produtos[i].aplicar_desconto(percentual)
             print("Desconto aplicado.")
         else:
             print("Produto inválido.")
