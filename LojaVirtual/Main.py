@@ -50,14 +50,14 @@ def menu():
                 print("2 - PIX")
                 print("3 - Cartão à vista")
 
-                forma = input("Escolha a forma de pagamento (1 a 4): ")
+                forma = input("Escolha a forma de pagamento (1 a 3): ")
 
                 if (forma == '2' or forma == '3') and not tem_desconto:
                     desconto = float(input("Digite o percentual de desconto (ex: 10 para 10%): "))
                     total -= (total * desconto) / 100
                     print(f"Desconto aplicado! Novo total: R$ {total:.2f}")
                 elif (forma == '2' or forma == '3') and tem_desconto:
-                    print("Produtos já têm desconto. Não é possível aplicar outro.")
+                    print("Produtos já têm desconto, não é possível aplicar outro.")
                 else:
                     print("Sem desconto aplicado.")
 
