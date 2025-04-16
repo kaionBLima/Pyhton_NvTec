@@ -1,25 +1,24 @@
 class Carrinho:
     def __init__(self):
-        self.itens = []  # lista de tuplas: (Produto, quantidade)
+        self.itens = []  # lista de tuplas (produto, quantidade)
 
-    def adicionar_produto(self, produto, quantidade):
-        if produto.estoque >= quantidade:
-            produto.estoque -= quantidade
-            self.itens.append((produto, quantidade))
-            print(f"{quantidade}x {produto.nome} adicionado ao carrinho.")
-        else:
-            print("Estoque insuficiente.")
+    def adicionar_item(self, produto, quantidade):
+        self.itens.append((produto, quantidade))
 
-    def ver_itens(self):
+    def exibir_carrinho(self):
         if not self.itens:
             print("Carrinho vazio.")
-        else:
-            print("Itens no carrinho:")
-            for produto, quantidade in self.itens:
-                print(f"{produto.nome} - {quantidade}x - R${produto.preco:.2f}")
+            return
+        print("\n=== Carrinho ===")
+        for i, (produto, quantidade) in enumerate(self.itens):
+            preco_total = produto.preco_com_desconto() * quantidade
+            print(f"{i+1}. {produto.nome} - {quantidade} un. - R$ {preco_total:.2f}")
 
     def calcular_total(self):
-        return sum(produto.preco * quantidade for produto, quantidade in self.itens)
+        total = 0
+        for produto, quantidade in self.itens:
+            total += produto.preco_com_desconto() * quantidade
+        return total
 
-    def esvaziar(self):
+    def finalizar_compra(self):
         self.itens.clear()

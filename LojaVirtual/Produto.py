@@ -3,9 +3,10 @@ class Produto:
         self.nome = nome
         self.preco = preco
         self.estoque = estoque
+        self.desconto = 0
 
     def aplicar_desconto(self, percentual):
-        self.preco -= self.preco * (percentual / 100)
+        self.desconto = percentual
 
-    def __str__(self):
-        return f"{self.nome} - R${self.preco:.2f} (Estoque: {self.estoque})"
+    def preco_com_desconto(self):
+        return self.preco * (1 - self.desconto / 100)
