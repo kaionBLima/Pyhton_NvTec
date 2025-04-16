@@ -1,6 +1,7 @@
 class Carrinho:
     def __init__(self):
-        self.itens = []  # lista de tuplas (produto, quantidade)
+        self.itens = []
+ (produto, quantidade)
 
     def adicionar_item(self, produto, quantidade):
         self.itens.append((produto, quantidade))
