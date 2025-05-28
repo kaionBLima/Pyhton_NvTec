@@ -1,0 +1,43 @@
+urls.py -> todoApp:
+
+	from django.contrib import admin
+	from django.urls import path, include
+	from todo_list import views
+
+	urlpatterns = [
+    		path('admin/', admin.site.urls),
+	    	path('', include('todo_list.urls')),
+	]
+
+urls.py -> todo_list:
+  	from django.urls import path
+	from . import views
+
+	urlpatterns = [ 
+    		path('', views.home, name='home'),
+    		path('about/', views.about, name='about'),
+	]
+
+em views.py -> todo_list:
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html', {})
+
+def about(request):
+    return render(request, 'about.html', {})
+
+
+criar pastas template em todo_list...
+	criar HTMLs em templates
+	criar base.html :    
+			{% block content %}
+        		{% endblock %}
+
+
+
+
+criar tabelas do banco de dados: py manage.py makemigrations
+
+	
