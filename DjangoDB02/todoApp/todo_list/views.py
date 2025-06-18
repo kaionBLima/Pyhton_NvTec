@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import todo
 from .forms import TodoForm
+from django.contrib import messages
 
 def home(request):
     if request.method == 'POST':
@@ -8,6 +9,7 @@ def home(request):
         if form.is_valid():
             form.save()
             todos = todo.objects.all()
+            messages.success(request, 'Todo adicionado com sucesso!')
             return render(request, 'home.html', {'todos': todos})
         else:
             todos = todo.objects.all()
