@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Editar tarefa</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            <br>
+            {{ form.description }}
+        </div>
+        <div class="mb-3 form-check">
+            {{ form.completed }}
+            <label class="form-check-label" for="{{ form.completed.id_for_label }}">Completed</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

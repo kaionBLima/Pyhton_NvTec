@@ -1,11 +1,98 @@
 {% extends 'base.html' %}
 
-    {% block content %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Todo List - Seu gerenciado de tarefas</h1>
+    
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="text" name="title" class="form-control" placeholder="Título da tarefa" required>
+        </div>
+        <div class="mb-3">
+            <textarea name="description" class="form-control" rows="3" placeholder="Descrição opcional..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
 
-    <h1>Home page</h1>
-    <br>
-    {% for todo in todos %}
-        <p>{{ todo.title }}</p>
-    {% endfor %}
+    <div class="list-group">
+        {% for todo in todos %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="d-flex align-items-start flex-grow-1">
+                    <form action="{% url 'toggle_todo' todo.id %}" method="post" class="me-3 mt-1">
+                        {% csrf_token %}
+                        <input type="checkbox" class="form-check-input" 
+                               style="width: 1.2em; height: 1.2em;"
+                               onchange="this.form.submit()"
+                               {% if todo.completed %}checked{% endif %}>
+                    </form>
+                    
+                    <div>
+                        <span class="{% if todo.completed %}text-decoration-line-through text-muted{% endif %}">
+                            {{ todo.title }}
+                        </span>
+                        <div class="text-muted" style="font-size: 0.8rem;">
+                            {{ todo.created_at|date:"d/m/Y H:i" }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex">
+                    {% if todo.description %}
+                    <details class="me-2 description-container">
+                        <summary class="btn btn-sm btn-outline-info" title="Ver descrição">
+                            <i class="bi bi-card-text"></i>
+                        </summary>
+                        <div class="description-content mt-2 p-2 bg-light rounded">
+                            <small class="text-muted">Descrição:</small>
+                            <div>{{ todo.description }}</div>
+                        </div>
+                    </details>
+                    {% endif %}
+                    
+                    <form action="{% url 'edit_todo' todo.id %}" method="get" class="me-2">
+                        <button type="submit" class="btn btn-sm btn-outline-primary" title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                    </form>
+                    
+                    <form action="{% url 'delete_todo' todo.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="list-group-item">Nenhuma tarefa ainda. Adicione uma acima!</div>
+        {% endfor %}
+    </div>
+</div>
 
-    {% endblock %}
+<style>
+    .description-container > summary {
+        list-style: none;
+        cursor: pointer;
+    }
+    .description-container > summary::-webkit-details-marker {
+        display: none;
+    }
+    .description-content {
+        position: absolute;
+        right: 15px;
+        width: 300px;
+        z-index: 10;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    .description-container[open] .description-content {
+        animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
